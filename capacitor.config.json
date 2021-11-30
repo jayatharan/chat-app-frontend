@@ -1,0 +1,6 @@
+{
+  "appId": "com.example.reactCapacitor",
+  "appName": "chat-app",
+  "webDir": "build",
+  "bundledWebRuntime": false
+}
