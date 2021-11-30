@@ -14,4 +14,4 @@ const firebaseApp = initializeApp({
   });
   
 export const database = getDatabase(firebaseApp)
-// export const messaging = getMessaging();
+export const messaging = getMessaging();

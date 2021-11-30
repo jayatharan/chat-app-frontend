@@ -4,7 +4,7 @@ import { Scrollbars } from 'react-custom-scrollbars-2';
 import axios from './axios'
 import { ref } from "firebase/database";
 import { useObject } from 'react-firebase-hooks/database';
-import {database} from './firebase'
+import {database, messaging} from './firebase'
 import { getMessaging, getToken } from "firebase/messaging";
 import { Geolocation } from '@capacitor/geolocation';
 
@@ -112,28 +112,28 @@ function App() {
     }
   }, [messageId])
 
-  // useEffect(() => {
-  //   getToken(messaging, {validkey:"BFIka0XgoIUXa1Odm3sF3nr02yD013RO9lFpH56ipIFkgEd16DmntcjpBS9-oKoj6-eGNZUOzFT-0MFgOqk_rcI"})
-  //   .then((currentToken)=>{
-  //     if(currentToken){
-  //       console.log(currentToken)
-  //       Axios.post('/token',{
-  //         "user":name,
-  //         "token":currentToken
-  //       })
-  //       .then((res)=>{
-  //         console.log("Token Updated")
-  //       })
-  //       .catch((err)=>{
-  //         console.log("Error")
-  //       })
-  //     }else {
-  //       console.log('No registration token available. Request permission to generate one.');
-  //     }
-  //   }).catch((err) => {
-  //     console.log('An error occurred while retrieving token. ', err);
-  //   });
-  // }, [message])
+  useEffect(() => {
+    getToken(messaging, {validkey:"BFIka0XgoIUXa1Odm3sF3nr02yD013RO9lFpH56ipIFkgEd16DmntcjpBS9-oKoj6-eGNZUOzFT-0MFgOqk_rcI"})
+    .then((currentToken)=>{
+      if(currentToken){
+        console.log(currentToken)
+        axios.post('/token',{
+          "user":name,
+          "token":currentToken
+        })
+        .then((res)=>{
+          console.log("Token Updated")
+        })
+        .catch((err)=>{
+          console.log("Error")
+        })
+      }else {
+        console.log('No registration token available. Request permission to generate one.');
+      }
+    }).catch((err) => {
+      console.log('An error occurred while retrieving token. ', err);
+    });
+  }, [message])
 
   return (
     <Container>
